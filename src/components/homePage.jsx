@@ -19,20 +19,22 @@ function HomePage() {
   return (
     <div>
       <Header />
-      <div className="grid grid-cols-3 gap-4">
-        {cards.map((card) => (
-          <div className="relative rounded-lg shadow-lg">
-            <img
-              src={card.imageUrl}
-              alt={card.title}
-              className="w-full h-64 rounded-t-lg"
-            />
-            <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">{card.title}</div>
-              <p className="text-gray-700 text-base">{card.description}</p>
+      <div className="container mx-auto">
+        <div className="grid grid-cols-3 gap-4">
+          {cards.map((card) => (
+            <div className="relative rounded-lg shadow-lg">
+              <img
+                src={card.imageUrl}
+                alt={card.title}
+                className="w-full h-64 rounded-t-lg"
+              />
+              <div className="px-6 py-4">
+                <div className="font-bold text-xl mb-2">{card.title}</div>
+                <p className="text-gray-700 text-base">{card.description}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
