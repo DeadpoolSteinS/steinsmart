@@ -29,7 +29,6 @@ function LoginPage() {
       .then((response) => response.json()) // parse body menjadi object JavaScript
       .then((data) => {
         if (data.status === "sukses") {
-          console.log("login berhasil");
           navigate("/home"); // arahkan ke halaman home
         } else {
           setErrorMessage(data.message); // tampilkan pesan error
