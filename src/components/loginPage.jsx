@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import FormInput from "./formInput";
 
 function LoginPage() {
@@ -29,6 +30,7 @@ function LoginPage() {
       .then((response) => response.json()) // parse body menjadi object JavaScript
       .then((data) => {
         if (data.status === "sukses") {
+          Cookies.set("account", JSON.stringify(data.data), { expires: 7 });
           navigate("/home"); // arahkan ke halaman home
         } else {
           setErrorMessage(data.message); // tampilkan pesan error
