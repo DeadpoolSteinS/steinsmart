@@ -4,9 +4,10 @@ import { FiX } from "react-icons/fi";
 import FormInput from "./formInput";
 import FormTextarea from "./formTextarea";
 import { toast, ToastContainer } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import Cookies from "js-cookie";
 
 import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
@@ -74,9 +75,17 @@ function HomePage() {
 
   const [products, setProducts] = useState([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
+    const account = Cookies.get("account");
+
+    if (account === undefined) {
+      return navigate("/login");
+    }
+
     fetchData();
-  }, []);
+  }, [navigate]);
 
   async function fetchData() {
     const response = await fetch("http://localhost:3000/api/products/");

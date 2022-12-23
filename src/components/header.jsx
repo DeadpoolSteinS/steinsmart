@@ -1,7 +1,16 @@
+import Cookies from "js-cookie";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../images/steins.png";
 
 function Header() {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    Cookies.remove("account");
+    navigate("/login");
+  }
+
   return (
     <nav className="flex items-center justify-between p-4 bg-[#F9A825] shadow-md">
       <div className="container mx-auto flex justify-between">
@@ -45,12 +54,12 @@ function Header() {
               </a>
             </div>
             <div>
-              <a
-                href="/log-out"
+              <button
+                onClick={handleLogout}
                 className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
               >
                 Logout
-              </a>
+              </button>
             </div>
           </div>
         </div>

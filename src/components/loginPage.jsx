@@ -31,7 +31,7 @@ function LoginPage() {
       .then((data) => {
         if (data.status === "sukses") {
           Cookies.set("account", JSON.stringify(data.data), { expires: 7 });
-          navigate("/home"); // arahkan ke halaman home
+          navigate("/"); // arahkan ke halaman home
         } else {
           setErrorMessage(data.message); // tampilkan pesan error
         }
