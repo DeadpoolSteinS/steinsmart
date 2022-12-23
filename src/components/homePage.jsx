@@ -4,10 +4,68 @@ import { FiX } from "react-icons/fi";
 import FormInput from "./formInput";
 import FormTextarea from "./formTextarea";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
+import "react-toastify/dist/ReactToastify.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+const banners = [
+  {
+    id: 1,
+    title: "Banner 1",
+    image:
+      "https://images.tokopedia.net/img/cache/730/kjjBfF/2021/8/18/ec18bff5-2636-47cf-b50f-966e23973d28.jpg",
+  },
+  {
+    id: 2,
+    title: "Banner 2",
+    image:
+      "https://assets.jalantikus.com/assets/cache/769/330/tips/2020/11/20/cara-pasang-iklan-di-shopee-banner-8c0ec.png",
+  },
+];
+
+const CustomNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="absolute right-4 top-[calc(50%-21px)] z-10 bg-white rounded cursor-pointer opacity-80 hover:opacity-100"
+    >
+      <IoIosArrowForward
+        size={42}
+        className="text-gray-600 hover:text-gray-800"
+      />
+    </div>
+  );
+};
+
+const CustomPrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <div
+      onClick={onClick}
+      className="absolute left-4 top-[calc(50%-21px)] z-10 bg-white rounded cursor-pointer opacity-80 hover:opacity-100"
+    >
+      <IoIosArrowBack size={42} className="text-gray-600 hover:text-gray-800" />
+    </div>
+  );
+};
 
 function HomePage() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
+  };
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [productName, setProductName] = useState("");
@@ -80,7 +138,7 @@ function HomePage() {
         <ToastContainer />
 
         {isModalOpen && (
-          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center z-10">
+          <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex items-center justify-center z-20">
             <div className="w-full max-w-sm rounded-lg bg-white shadow-lg py-4 px-6">
               <div className="modal-header flex items-center justify-between pb-4">
                 <h2 className="text-2xl font-bold">Tambah Product</h2>
@@ -142,6 +200,12 @@ function HomePage() {
           </div>
         )}
 
+        <Slider {...settings} className="mb-8">
+          {banners.map((banner) => (
+            <img src={banner.image} alt={banner.title} key={banner.id} />
+          ))}
+        </Slider>
+
         <div className="grid grid-cols-custom justify-center gap-4 sm:col-span-1 md:col-span-2">
           {products.map((product) => (
             <Link to={`/product/${product._id}`} key={product._id}>
@@ -151,9 +215,11 @@ function HomePage() {
                   alt={product.name}
                   className="w-64 h-64 rounded-t-lg shadow object-cover"
                 />
-                <div className="px-6 py-4">
+                <div className="px-6 py-4 h-[116px]">
                   <div className="font-bold text-xl mb-2">{product.name}</div>
-                  <p className="text-gray-700 text-base">{product.detail}</p>
+                  <p className="text-gray-700 text-base line-clamp-2">
+                    {product.detail}
+                  </p>
                 </div>
               </div>
             </Link>
