@@ -23,7 +23,7 @@ function Header() {
               </svg>
             </button>
           </div>
-          <div className="w-full block flex-grow gap-4 lg:flex lg:items-center lg:w-auto">
+          <div className="w-full hidden flex-grow gap-4 lg:flex lg:items-center lg:w-auto">
             <div className="text-sm lg:flex-grow">
               <a
                 href="/home"

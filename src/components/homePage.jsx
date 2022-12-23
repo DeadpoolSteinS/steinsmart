@@ -5,6 +5,7 @@ import FormInput from "./formInput";
 import FormTextarea from "./formTextarea";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -142,18 +143,20 @@ function HomePage() {
         )}
 
         <div className="grid grid-cols-custom justify-center gap-4 sm:col-span-1 md:col-span-2">
-          {products.map((product, index) => (
-            <div key={index} className="relative rounded-lg shadow-lg">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-64 h-64 rounded-t-lg shadow object-cover"
-              />
-              <div className="px-6 py-4">
-                <div className="font-bold text-xl mb-2">{product.name}</div>
-                <p className="text-gray-700 text-base">{product.detail}</p>
+          {products.map((product) => (
+            <Link to={`/product/${product._id}`} key={product._id}>
+              <div className="relative rounded-lg shadow-lg">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-64 h-64 rounded-t-lg shadow object-cover"
+                />
+                <div className="px-6 py-4">
+                  <div className="font-bold text-xl mb-2">{product.name}</div>
+                  <p className="text-gray-700 text-base">{product.detail}</p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
