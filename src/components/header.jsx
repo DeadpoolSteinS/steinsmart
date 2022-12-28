@@ -1,7 +1,8 @@
 import Cookies from "js-cookie";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/steins.png";
+import { FaShoppingCart } from "react-icons/fa";
 
 function Header() {
   const navigate = useNavigate();
@@ -16,10 +17,21 @@ function Header() {
       <div className="container mx-auto flex justify-between">
         <img
           src={logo}
-          alt="Logo Tokopedia"
+          alt="Logo SteinS"
           className="h-8 rounded bg-white px-4 py-2"
         />
-        <div>
+        <div className="flex gap-8">
+          <div className="cart-button flex">
+            <Link
+              to="/cart"
+              className="relative text-white hover:text-gray-500"
+            >
+              <FaShoppingCart className="text-3xl" />
+              <sup className="absolute -top-2 -right-2 flex justify-center items-center text-xs bg-red-500 rounded-full w-5 h-5 text-white font-semibold">
+                5
+              </sup>
+            </Link>
+          </div>
           <div className="block lg:hidden">
             <button className="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
               <svg

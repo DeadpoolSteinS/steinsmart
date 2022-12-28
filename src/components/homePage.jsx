@@ -75,6 +75,8 @@ function HomePage() {
 
   const [products, setProducts] = useState([]);
 
+  const [query, setQuery] = useState("");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -84,11 +86,11 @@ function HomePage() {
       return navigate("/login");
     }
 
-    fetchData();
+    fetchData("http://localhost:3000/api/products/");
   }, [navigate]);
 
-  async function fetchData() {
-    const response = await fetch("http://localhost:3000/api/products/");
+  async function fetchData(url) {
+    const response = await fetch(url);
     const data = await response.json();
     setProducts(data.data);
   }
@@ -133,16 +135,42 @@ function HomePage() {
     setModalOpen(false);
   }
 
+  function handleSubmitSearch(event) {
+    event.preventDefault();
+  }
+
+  const handleChange = (event) => {
+    setQuery(event.target.value);
+
+    if (event.target.value === "")
+      fetchData("http://localhost:3000/api/products/");
+    else fetchData(`http://localhost:3000/api/search/${event.target.value}`);
+  };
+
   return (
     <div>
       <Header />
       <div className="container mx-auto py-4">
-        <button
-          onClick={() => setModalOpen(true)}
-          className="py-2 px-4 bg-[#F9A825] text-white rounded-full shadow-lg mb-4"
-        >
-          Tambah Product
-        </button>
+        <div className="flex justify-between mb-4">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="py-2 px-4 bg-[#F9A825] text-white rounded-full shadow-lg"
+          >
+            Tambah Product
+          </button>
+          <form
+            onSubmit={handleSubmitSearch}
+            className="px-4 flex items-center gap-2 rounded-md shadow-sm border"
+          >
+            <input
+              type="search"
+              className="form-input py-1 block w-full leading-5 rounded-md transition duration-150 ease-in-out appearance-none focus:outline-none focus:shadow-outline-blue"
+              placeholder="Search..."
+              value={query}
+              onChange={handleChange}
+            />
+          </form>
+        </div>
 
         <ToastContainer />
 

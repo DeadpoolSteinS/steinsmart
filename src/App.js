@@ -3,6 +3,7 @@ import HomePage from "./components/homePage";
 import LoginPage from "./components/loginPage";
 import RegisterPage from "./components/registerPage";
 import ProductPage from "./components/productPage";
+import CartPage from "./components/cartPage";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/product/:productId" element={<ProductPage />} />
+      <Route path="/cart" element={<CartPage />} />
     </Routes>
   );
 }
