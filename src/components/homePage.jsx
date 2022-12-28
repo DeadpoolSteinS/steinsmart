@@ -71,6 +71,7 @@ function HomePage() {
 
   const [productName, setProductName] = useState("");
   const [productDetail, setProductDetail] = useState("");
+  const [productPrice, setProductPrice] = useState("");
   const [productImage, setProductImage] = useState("");
 
   const [products, setProducts] = useState([]);
@@ -99,6 +100,10 @@ function HomePage() {
     setProductName(event.target.value);
   };
 
+  const handleProductPriceChange = (event) => {
+    setProductPrice(event.target.value);
+  };
+
   const handleProductDetailChange = (event) => {
     setProductDetail(event.target.value);
   };
@@ -116,6 +121,7 @@ function HomePage() {
       body: JSON.stringify({
         name: productName,
         detail: productDetail,
+        price: productPrice,
         image: productImage,
       }),
       headers: {
@@ -208,6 +214,16 @@ function HomePage() {
                     placeholder="ex: Pakaian untuk anak muda yang terjangkau"
                     value={productDetail}
                     onChange={handleProductDetailChange}
+                    required
+                    className="mb-4"
+                  />
+
+                  <FormInput
+                    label="Price"
+                    id="productPrice"
+                    placeholder="ex: 100000"
+                    value={productPrice}
+                    onChange={handleProductPriceChange}
                     required
                     className="mb-4"
                   />
