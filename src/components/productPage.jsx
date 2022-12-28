@@ -47,12 +47,32 @@ const ProductPage = () => {
         accountId: account._id,
         productId: productId,
         value: rating,
+        review: review
       }),
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
+      .then((data) => {
+        toast(data.message);
+      });
+  };
+
+  const handleAddToCart = () => {
+    const account = JSON.parse(Cookies.get("account"));
+
+    // Memasukkan item ke cart dalam database
+    fetch("http://localhost:3000/api/add_to_cart", {
+      method: "POST",
+      body: JSON.stringify({
+        accountId: account._id,
+        productId: productId
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    }).then((response) => response.json())
       .then((data) => {
         toast(data.message);
       });
@@ -74,7 +94,7 @@ const ProductPage = () => {
               {product.detail}
             </p>
             <div className="mt-4">
-              <button className="px-4 py-2 bg-[#F9A825] text-white rounded-full hover:bg-[#d38b18] focus:outline-none focus:shadow-outline">
+              <button className="px-4 py-2 bg-[#F9A825] text-white rounded-full hover:bg-[#d38b18] focus:outline-none focus:shadow-outline" onClick={ handleAddToCart }>
                 Add to Cart
               </button>
             </div>
