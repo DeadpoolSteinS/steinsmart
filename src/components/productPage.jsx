@@ -14,6 +14,11 @@ const ProductPage = () => {
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
 
+  const [comment, setComment] = useState("");
+  const [listComments, setListComments] = useState([]);
+
+  const account = JSON.parse(Cookies.get("account"));
+
   // Gunakan ID untuk mengambil data produk dari API
   useEffect(() => {
     // Fetch data produk dari API
@@ -23,6 +28,8 @@ const ProductPage = () => {
         // Set data produk ke state
         setProduct(data.data);
       });
+
+    fetchDataComment(`http://localhost:3000/api/comments/${productId}`);
   }, [productId]);
 
   // Fungsi untuk mengubah nilai state rating
@@ -37,8 +44,6 @@ const ProductPage = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    const account = JSON.parse(Cookies.get("account"));
 
     // Kirim data rating dan review ke server
     fetch("http://localhost:3000/api/add_rating", {
@@ -57,6 +62,34 @@ const ProductPage = () => {
         toast(data.message);
       });
   };
+
+  const handleSubmitComment = (event) => {
+    event.preventDefault();
+
+    // Kirim data rating dan review ke server
+    fetch("http://localhost:3000/api/add_comment", {
+      method: "POST",
+      body: JSON.stringify({
+        accountId: account._id,
+        productId: productId,
+        desc: comment,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        toast(data.message);
+        fetchDataComment(`http://localhost:3000/api/comments/${productId}`);
+      });
+  };
+
+  async function fetchDataComment(url) {
+    const response = await fetch(url);
+    const data = await response.json();
+    setListComments(data.data);
+  }
 
   // Tampilkan data produk di halaman
   return (
@@ -129,6 +162,65 @@ const ProductPage = () => {
             </button>
           </div>
         </form>
+
+        <div className="mt-8">
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              Leave a comment
+            </h2>
+            <form onSubmit={handleSubmitComment}>
+              <div className="mb-4">
+                <label
+                  htmlFor="comment"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Comment
+                </label>
+                <input
+                  type="text"
+                  id="comment"
+                  name="comment"
+                  value={comment}
+                  onChange={(event) => setComment(event.target.value)}
+                  className="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+                />
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#F9A825] text-white rounded hover:bg-[#d38b18] focus:outline-none focus:shadow-outline"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-gray-800 mb-4">Comments</h2>
+            {listComments.map((comment) => (
+              <div key={comment._id} className="mb-4">
+                <div className="flex items-center">
+                  <img
+                    src={comment.accountId.image}
+                    alt={comment.accountId.username}
+                    className="h-10 w-10 rounded-full mr-4 object-cover"
+                  />
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-800">
+                      {comment.accountId.username}
+                    </h3>
+                    <p className="text-gray-600 text-sm">{comment.createdAt}</p>
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <p className="text-gray-700 text-base leading-relaxed">
+                    {comment.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

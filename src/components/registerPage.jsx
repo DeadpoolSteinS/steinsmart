@@ -6,6 +6,8 @@ function RegisterPage() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [image, setImage] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleUsernameChange = (event) => {
@@ -20,6 +22,10 @@ function RegisterPage() {
     setPassword(event.target.value);
   };
 
+  const handleImageChange = (event) => {
+    setImage(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -27,7 +33,7 @@ function RegisterPage() {
     fetch("http://localhost:3000/api/register/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, email, password }),
+      body: JSON.stringify({ username, email, password, image }),
     })
       .then((response) => response.json()) // parse body menjadi object JavaScript
       .then((data) => {
@@ -72,8 +78,20 @@ function RegisterPage() {
           value={password}
           onChange={handlePasswordChange}
           required
-          className="mb-6"
+          className="mb-4"
         />
+
+        <FormInput
+          label="Link Image"
+          id="image"
+          type="text"
+          placeholder="https://avatars.githubusercontent.com/u/75278889?v=4"
+          value={image}
+          onChange={handleImageChange}
+          required
+          className="mb-4"
+        />
+
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
