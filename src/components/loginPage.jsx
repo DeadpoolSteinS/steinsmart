@@ -39,53 +39,36 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-200">
-      <form className="w-full max-w-xs" onSubmit={handleSubmit}>
+    <div className="flex items-center justify-center h-screen bg-[#F9A825]">
+      <form className=" bg-white p-8 mx-80 rounded-3xl shadow-xl" onSubmit={handleSubmit}>
+        <p className="mb-3 text-2xl text-[#F9A825] font-bold font-serif p-5">Welcome to Steinsmart, Fellas!</p>
+
         {errorMessage && ( // jika ada pesan error, tampilkan pesan tersebut
-          <p className="text-red-500 text-xs italic mb-4">{errorMessage}</p>
+          <div className="flex justify-center">
+            <p className="text-red-500 text-sm italic just">{errorMessage}</p>
+          </div>
         )}
 
-        <FormInput
-          label="Username"
-          id="username"
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={handleUsernameChange}
-          required
-          className="mb-4"
-        />
+        <FormInput label="Username" id="username" type="text" placeholder="Username" value={username} onChange={handleUsernameChange} required className="mb-4" />
 
-        <FormInput
-          label="Password"
-          id="password"
-          type="password"
-          placeholder="**********"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-          className="mb-6"
-        />
+        <FormInput label="Password" id="password" type="password" placeholder="**********" value={password} onChange={handlePasswordChange} required className="mb-6" />
 
         <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
+          <button className="bg-[#F9A825] hover:bg-[#FF7000] text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline " type="submit">
             Sign In
           </button>
-          <a
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-            href="/reset-password"
-          >
+          {/* <a className="inline-block align-baseline font-bold text-sm text-[#F9A825] hover:text-[#FF7000]" href="/reset-password">
             Forgot Password?
-          </a>
+          </a> */}
         </div>
-        <div>
+        <div className="flex mt-5 text-xs justify-center">
           <br />
-          <Link to="/register">
-            Don't have an account? Click here to register
-          </Link>
+          <p>
+            Don't have an account?{" "}
+            <Link className="text-[#F9A825] hover:text-[#FF7000] font-bold" to="/register">
+              Click here to register!
+            </Link>
+          </p>
         </div>
       </form>
     </div>

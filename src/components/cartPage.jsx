@@ -34,7 +34,6 @@ function CartPage() {
     <div>
       <Header />
       <div className="container mx-auto px-4 py-12">
-        <h1 className="text-2xl font-bold mb-6">Cart</h1>
         {products.map((product) => (
           <div
             key={product._id}
@@ -96,10 +95,13 @@ function CartPage() {
                   onClick={() => {
                     // Remove product from cart
                   }}
-                  className="btn btn-danger rounded-full px-4 py-2 bg-[#F9A825] text-white"
+                  className="btn btn-danger rounded-md px-2 text-xs py-1 bg-red-500 hover:bg-red-700 text-white"
                 >
                   Remove
                 </button>
+              </div>
+              <div className="flex justify-end mx-2">
+                <h2 className="text-xl font-bold text-[#F9A825]  mb-2">Rp. {product.price}</h2>
               </div>
             </div>
           </div>
