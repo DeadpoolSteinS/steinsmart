@@ -54,8 +54,8 @@ function RegisterPage() {
 
         <FormInput label="Link Image" id="image" type="text" placeholder="https://avatars.githubusercontent.com/u/75278889?v=4" value={image} onChange={handleImageChange} required className="mb-4" />
 
-        <div className="flex items-center justify-between">
-          <button className="bg-[#F9A825] hover:bg-[#FF7000] text-white font-bold py-2 px-4 rounded-lg mt-3 focus:outline-none focus:shadow-outline" type="submit">
+        <div className="flex justify-center">
+          <button className="bg-[#F9A825] hover:bg-[#FF7000] text-white font-semibold py-2 px-4 rounded-lg mt-3 focus:outline-none focus:shadow-outline" type="submit">
             Register
           </button>
         </div>

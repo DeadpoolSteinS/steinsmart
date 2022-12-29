@@ -68,10 +68,8 @@ function HomePage() {
   const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
-
+  const account = Cookies.get("account");
   useEffect(() => {
-    const account = Cookies.get("account");
-
     if (account === undefined) {
       return navigate("/login");
     }
@@ -140,12 +138,15 @@ function HomePage() {
     if (event.target.value === "") fetchData("http://localhost:3000/api/products/");
     else fetchData(`http://localhost:3000/api/search/${event.target.value}`);
   };
+  function formatIndo(price) {
+    return "Rp. " + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 
   return (
     <div>
       <Header />
       <div className="container mx-auto py-4">
-        <div className="flex justify-end mb-4">
+        <div className="flex justify-between mb-4">
           <button onClick={() => setModalOpen(true)} className="py-2 px-4 bg-[#F9A825] text-white rounded-lg shadow-lg">
             Tambah Product
           </button>
@@ -177,15 +178,7 @@ function HomePage() {
 
                   <FormTextarea label="Detail" id="productDetail" placeholder="ex: Pakaian untuk anak muda yang terjangkau" value={productDetail} onChange={handleProductDetailChange} required className="mb-4" />
 
-                  <FormInput
-                    label="Price"
-                    id="productPrice"
-                    placeholder="ex: 100000"
-                    value={productPrice}
-                    onChange={handleProductPriceChange}
-                    required
-                    className="mb-4"
-                  />
+                  <FormInput label="Price" id="productPrice" placeholder="ex: 100000" value={productPrice} onChange={handleProductPriceChange} required className="mb-4" />
 
                   <FormInput
                     label="Image URL (from internet)"
@@ -225,7 +218,7 @@ function HomePage() {
                   <p className="text-gray-700 line-clamp-2 text-xs">{product.detail}</p>
                   {/* jaraknya kurang, pas coba mb malah keluar dari cardnya */}
                   <div className="flex justify-end mb-4">
-                    <p className="font-bold">Rp. {product.price}</p>
+                    <p className="font-bold">{formatIndo(product.price)}</p>
                   </div>
                 </div>
               </div>

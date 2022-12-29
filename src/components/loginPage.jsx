@@ -53,8 +53,8 @@ function LoginPage() {
 
         <FormInput label="Password" id="password" type="password" placeholder="**********" value={password} onChange={handlePasswordChange} required className="mb-6" />
 
-        <div className="flex items-center justify-between">
-          <button className="bg-[#F9A825] hover:bg-[#FF7000] text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline " type="submit">
+        <div className="flex items-center justify-center">
+          <button className="bg-[#F9A825] hover:bg-[#FF7000] text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline " type="submit">
             Sign In
           </button>
           {/* <a className="inline-block align-baseline font-bold text-sm text-[#F9A825] hover:text-[#FF7000]" href="/reset-password">
