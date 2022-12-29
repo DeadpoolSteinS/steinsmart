@@ -1,42 +1,34 @@
-import React, { useState } from "react";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "./header";
 
 function CartPage() {
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Product 1",
-      price: 100,
-      quantity: 2,
-      image:
-        "https://images.tokopedia.net/img/cache/500-square/attachment/2019/6/21/156111030334018/156111030334018_822930be-cb10-4538-a646-f1b3385ee68e.png",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      price: 200,
-      quantity: 1,
-      image:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRB-VN6R-zzSCQognqjJx_a1GtDQ4wnTyJpQw&usqp=CAU",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      price: 300,
-      quantity: 3,
-      image:
-        "https://images.tokopedia.net/img/cache/500-square/VqbcmM/2021/12/15/17c3cfe2-08c2-4a30-8d14-27dc4e772eee.jpg",
-    },
-  ]);
+  const [products, setProducts] = useState([]);
+
+  const account = JSON.parse(Cookies.get("account"));
+
+  useEffect(() => {
+    // Fetch data produk dari API
+    fetch(`http://localhost:3000/api/account_cart/${account._id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        // Set data produk ke state
+        setProducts(data.data.product);
+      });
+    // eslint-disable-next-line
+  }, []);
 
   const totalPrice = products.reduce(
-    (acc, product) => acc + product.price * product.quantity,
+    (acc, product) => acc + product.productId.price * product.qty,
     0
   );
-  const totalQuantity = products.reduce(
-    (acc, product) => acc + product.quantity,
-    0
-  );
+
+  const totalQuantity = products.reduce((acc, product) => acc + product.qty, 0);
+
+  function formatIndo(price) {
+    return "Rp. " + price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
 
   return (
     <div>
@@ -45,22 +37,24 @@ function CartPage() {
         <h1 className="text-2xl font-bold mb-6">Cart</h1>
         {products.map((product) => (
           <div
-            key={product.id}
+            key={product._id}
             className="border rounded-lg shadow-md mb-4 p-4"
           >
             <div className="flex items-center mb-4">
               <img
-                src={product.image}
-                alt={product.name}
-                className="h-16 w-16 rounded mr-4"
+                src={product.productId.image}
+                alt={product.productId.name}
+                className="h-16 w-16 rounded mr-4 object-cover"
               />
               <div>
-                <h2 className="text-xl font-bold mb-2">{product.name}</h2>
+                <h2 className="text-xl font-bold mb-2">
+                  {product.productId.name}
+                </h2>
                 <p className="text-gray-600 text-sm mb-4">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  {product.productId.detail}
                 </p>
                 <h2 className="text-xl font-bold text-gray-600 mb-2">
-                  {product.price}
+                  {formatIndo(product.productId.price)}
                 </h2>
               </div>
             </div>
@@ -81,7 +75,7 @@ function CartPage() {
                 >
                   -
                 </button>
-                <h2 className="text-xl font-bold mx-4">{product.quantity}</h2>
+                <h2 className="text-xl font-bold mx-4">{product.qty}</h2>
                 <button
                   onClick={() => {
                     // Increase quantity
@@ -112,7 +106,18 @@ function CartPage() {
         ))}
         <div className="flex justify-between mt-6">
           <h2 className="text-xl font-bold">Total Quantity: {totalQuantity}</h2>
-          <h2 className="text-xl font-bold">Total Price: {totalPrice}</h2>
+          <h2 className="text-xl font-bold">
+            Total Price: {formatIndo(totalPrice)}
+          </h2>
+        </div>
+
+        <div className="my-10">
+          <Link
+            to="/pay"
+            className="px-4 py-2 font-bold text-white bg-[#F9A825] rounded hover:bg-[#c8810e] focus:outline-none focus:shadow-outline"
+          >
+            Beli
+          </Link>
         </div>
       </div>
     </div>
