@@ -33,15 +33,18 @@ const ProductPage = () => {
   }, [productId]);
 
   // Fungsi untuk mengubah nilai state rating
+  // eslint-disable-next-line
   const handleRatingChange = (event) => {
     setRating(event.target.value);
   };
 
   // Fungsi untuk mengubah nilai state review
+  // eslint-disable-next-line
   const handleReviewChange = (event) => {
     setReview(event.target.value);
   };
 
+  // eslint-disable-next-line
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -117,7 +120,11 @@ const ProductPage = () => {
       <ToastContainer />
       <div className="container mx-auto py-8">
         <div className="flex items-center">
-          <img src={product.image} alt={product.name} className="h-64" />
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-64 w-64 object-cover"
+          />
           <div className="w-1/2 px-4">
             <h1 className="text-3xl font-bold text-gray-800 mb-4">
               {product.name}
@@ -159,14 +166,6 @@ const ProductPage = () => {
         </form> */}
         <hr className="border-2 mt-10" />
         <div className="mt-8">
-          <div>
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Discuss</h2>
-            {listComments.map((comment) => (
-              <div key={comment._id} className="mb-4 border p-2 rounded-lg shadow-md">
-                <div className="flex items-center">
-                  <img src={comment.accountId.image} alt={comment.accountId.username} className="h-10 w-10 rounded-full mr-4 object-cover" />
-                  <div>
-                    <h3 className="text-lg font-bold  text-gray-800">{comment.accountId.username}</h3>
           <form onSubmit={handleSubmitComment} className="mb-8">
             <div className="mb-4">
               <label
@@ -217,28 +216,6 @@ const ProductPage = () => {
                 </div>
               </div>
             ))}
-          </div>
-          <div className="mb-8 mt-16">
-            <form onSubmit={handleSubmitComment}>
-              <div className="mb-4">
-                <label htmlFor="comment" className="block text-gray-700 font-bold mb-5">
-                  Ask question(s)
-                </label>
-                <input
-                  type="text"
-                  id="comment"
-                  name="comment"
-                  value={comment}
-                  onChange={(event) => setComment(event.target.value)}
-                  className="border shadow-lg mb-4 rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
-                />
-              </div>
-              <div className="flex justify-end">
-                <button type="submit" className="px-4 py-2 bg-[#F9A825] text-white rounded-lg hover:bg-[#d38b18] focus:outline-none focus:shadow-outline">
-                  Submit
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       </div>
