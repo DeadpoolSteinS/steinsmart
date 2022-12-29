@@ -140,9 +140,9 @@ function HomePage() {
       <Header />
       <div className="container mx-auto py-4">
         <div className="flex justify-end mb-4">
-          {/* <button onClick={() => setModalOpen(true)} className="py-2 px-4 bg-[#F9A825] text-white rounded-lg shadow-lg">
+          <button onClick={() => setModalOpen(true)} className="py-2 px-4 bg-[#F9A825] text-white rounded-lg shadow-lg">
             Tambah Product
-          </button> */}
+          </button>
           <form onSubmit={handleSubmitSearch} className="px-6 flex items-center gap-2 rounded-md shadow-md border-2">
             <input
               type="search"
@@ -205,7 +205,7 @@ function HomePage() {
               <div className="relative rounded-xl shadow-lg">
                 <img src={product.image} alt={product.name} className="w-64 h-64  rounded-t-lg shadow object-cover" />
                 <div className="px-6 py-4 h-[116px] rounded-b-lg">
-                  <div className="font-bold text-xl mb-2 text-[#F9A825] ">{product.name}</div>
+                  <div className="font-bold text-lg mb-2 text-[#F9A825] ">{product.name}</div>
                   <p className="text-gray-700 line-clamp-2 text-xs">{product.detail}</p>
                   {/* jaraknya kurang, pas coba mb malah keluar dari cardnya */}
                   <div className="flex justify-end mb-4">

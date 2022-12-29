@@ -91,7 +91,7 @@ function CartPage() {
           <p className="text-lg font-bold">Total Quantity : {totalQuantity}</p>
           <div className="flex justify-center items-center">
             <p className="text-lg font-bold">Total Price : Rp. {totalPrice}</p>
-            <button className="mx-5 px-4 py-2 bg-[#F9A825] text-white rounded-lg hover:bg-[#d38b18] focus:outline-none focus:shadow-outline"> Checkout</button>
+            <button className="mx-5 px-4 font-bold py-2 bg-[#F9A825] text-white rounded-lg hover:bg-[#d38b18] focus:outline-none focus:shadow-outline"> Checkout</button>
           </div>
         </div>
       </div>
