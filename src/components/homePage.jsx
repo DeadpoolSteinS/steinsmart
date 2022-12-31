@@ -79,15 +79,15 @@ function HomePage() {
   const [query, setQuery] = useState("");
 
   const navigate = useNavigate();
-  let account = JSON.parse(Cookies.get("account"));
+  const accountCookie = Cookies.get("account");
 
   useEffect(() => {
-    if (account === undefined) {
+    if (accountCookie === undefined) {
       return navigate("/login");
     }
 
     fetchData("http://localhost:3000/api/products/");
-  }, [navigate, account]);
+  }, [navigate, accountCookie]);
 
   async function fetchData(url) {
     const response = await fetch(url);

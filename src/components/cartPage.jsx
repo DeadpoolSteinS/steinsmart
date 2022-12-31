@@ -13,7 +13,6 @@ function CartPage() {
     fetch(`http://localhost:3000/api/account_cart/${account._id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data.product);
         // Set data produk ke state
         setProducts(data.data.product);
       });

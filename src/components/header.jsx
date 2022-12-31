@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/steins.png";
 import { FaShoppingCart } from "react-icons/fa";
@@ -7,15 +7,16 @@ import { FaShoppingCart } from "react-icons/fa";
 function Header() {
   const navigate = useNavigate();
 
-  const account = JSON.parse(Cookies.get("account"));
+  const accountCookie = Cookies.get("account");
+  const [account, setAccount] = useState({});
 
-  // useEffect(() => {
-  //   // console.log(account);
-  //   if (account === undefined) {
-  //     return navigate("/login");
-  //   }
-  //   const account = JSON.parse(account);
-  // }, []);
+  useEffect(() => {
+    if (accountCookie === undefined) {
+      return navigate("/login");
+    }
+
+    setAccount(JSON.parse(accountCookie));
+  }, [navigate, accountCookie]);
 
   function handleLogout() {
     Cookies.remove("account");
