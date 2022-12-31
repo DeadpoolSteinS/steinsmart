@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/steins.png";
 import { FaShoppingCart } from "react-icons/fa";
@@ -26,19 +26,32 @@ function Header() {
     <nav className="flex items-center justify-between p-4 bg-[#F9A825] shadow-md">
       <div className="container items-center mx-auto flex justify-between">
         <Link to="/">
-          <img src={logo} alt="Logo SteinS" className="h-8 rounded bg-white px-4 py-2" />
+          <img
+            src={logo}
+            alt="Logo SteinS"
+            className="h-8 rounded bg-white px-4 py-2"
+          />
         </Link>{" "}
         <div className="flex gap-5 align-bottom">
           <div className="cart-button flex items-center">
-            <Link to="/cart" className="relative text-white hover:text-gray-200 ">
+            <Link
+              to="/cart"
+              className="relative text-white hover:text-gray-200 "
+            >
               <FaShoppingCart className="text-3xl " />
-              <sup className="absolute -top-2 -right-2 flex justify-center items-center text-xs bg-red-500 rounded-full w-5 h-5 text-white font-semibold">5</sup>
+              <sup className="absolute -top-2 -right-2 flex justify-center items-center text-xs bg-red-500 rounded-full w-5 h-5 text-white font-semibold">
+                5
+              </sup>
             </Link>
           </div>
 
           <div className="block lg:hidden">
             <button className="flex items-center px-3 py-2 border rounded text-white border-white hover:text-[#F9A825] hover:bg-white">
-              <svg className="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                className="fill-current h-3 w-3"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <title>Menu</title>
                 <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
               </svg>
@@ -59,9 +72,16 @@ function Header() {
 
             {/* harusnya ini dropdown tapi ga bisa  */}
             <button id="dropdownDefault" data-dropdown-toggle="dropdown">
-              <img className="h-10 w-10 rounded-full" src={account.image} alt="Profile Image" />
+              <img
+                className="h-10 w-10 rounded-full"
+                src={account.image}
+                alt="Profile Gambar"
+              />
             </button>
-            <button onClick={handleLogout} className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent  hover:text-[#F9A825] hover:bg-white mt-4 lg:mt-0">
+            <button
+              onClick={handleLogout}
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent  hover:text-[#F9A825] hover:bg-white mt-4 lg:mt-0"
+            >
               Logout{" "}
             </button>
           </div>
