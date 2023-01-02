@@ -44,10 +44,7 @@ const PayPage = () => {
 
   const calculateTotalPrice = (products) => {
     // Menghitung total harga produk dengan menjumlahkan harga masing-masing produk
-    return products.reduce(
-      (total, product) => total + product.productId.price * product.qty,
-      0
-    );
+    return products.reduce((total, product) => total + product.productId.price * product.qty, 0);
   };
 
   const calculateShippingCost = (courierOptions) => {
@@ -60,9 +57,7 @@ const PayPage = () => {
 
   const calculateTotalCost = (products, courierOptions) => {
     // Menghitung total harga dengan menambahkan total harga produk dan biaya pengiriman
-    return (
-      calculateTotalPrice(products) + calculateShippingCost(courierOptions)
-    );
+    return calculateTotalPrice(products) + calculateShippingCost(courierOptions);
   };
 
   const handleCourierChange = (selectedCourierId) => {
@@ -109,56 +104,45 @@ const PayPage = () => {
       <Header />
       <div className="container mx-auto py-10">
         {/* List produk */}
-        <div className="flex flex-col">
-          <h2 className="text-2xl font-bold mb-4">Daftar Produk</h2>
+        <div className="flex flex-col ">
+          <h2 className="text-2xl font-bold mb-4">Semua Produk</h2>
           {products.map((product) => (
-            <div key={product._id} className="flex items-center mb-4">
-              <img
-                src={product.productId.image}
-                alt={product.name}
-                className="w-16 h-16 mr-4 object-cover"
-              />
+            <div key={product._id} className="flex border p-3 rounded-lg shadow-md items-center mb-4">
+              <img src={product.productId.image} alt={product.name} className="w-16 h-16 mr-4 object-cover" />
               <div>
                 <h3 className="font-bold text-lg mb-2">{product.name}</h3>
-                <p className="text-sm text-gray-600 mb-2">
-                  Jumlah: {product.qty}
-                </p>
-                <p className="text-sm text-gray-600">
-                  Harga: {formatIndo(product.productId.price)}
-                </p>
+                <p className="text-sm text-gray-600 font-semibold">Harga: {formatIndo(product.productId.price)}</p>
+                <p className="text-sm text-gray-600">Jumlah: {product.qty}</p>
               </div>
             </div>
           ))}
         </div>
 
         {/* Alamat user */}
-        <div className="my-10 border-2 border-gray-200 rounded-lg p-6">
-          <h2 className="text-2xl font-bold mb-4">Alamat Pengiriman</h2>
-          <div className="flex gap-2 items-center">
+        <div className="my-5 rounded-lg">
+          <hr className="border-1 mb-5" />
+          <h2 className="text-2xl font-bold mb-4">Alamat</h2>
+          <div className="flex gap-2 items-start flex-col justify-start border p-3">
             <p className="text-lg font-bold mr-4">{account.username}</p>
-            <p className="text-sm text-gray-600">{userAddress.street}</p>
-            <p className="text-sm text-gray-600">{userAddress.city}</p>
-            <p className="text-sm text-gray-600">{userAddress.zipCode}</p>
-            <p className="text-sm text-gray-600">{userAddress.country}</p>
+            <div className="flex justify-start gap-1 font-semibold">
+              <p className="text-sm text-gray-600">{userAddress.street}, </p>
+              <p className="text-sm text-gray-600">{userAddress.city},</p>
+              <p className="text-sm text-gray-600">{userAddress.zipCode},</p>
+              <p className="text-sm text-gray-600">{userAddress.country}.</p>
+            </div>
           </div>
         </div>
 
         {/* Pilihan kurir */}
         <div className="my-10">
-          <h2 className="text-2xl font-bold mb-4">Pilih Kurir</h2>
+          <hr className="border-1 mb-5" />
+
+          <h2 className="text-2xl font-bold mb-4">Pengiriman</h2>
           <div className="flex gap-4">
             {courierOptions.map((option) => (
               <label key={option.id} className="flex items-center">
-                <input
-                  type="radio"
-                  className="form-radio"
-                  name="courier"
-                  checked={option.isSelected}
-                  onChange={() => handleCourierChange(option.id)}
-                />
-                <span className="ml-2 text-lg font-semibold">
-                  {option.name}
-                </span>
+                <input type="radio" className="form-radio" name="courier" checked={option.isSelected} onChange={() => handleCourierChange(option.id)} />
+                <span className="ml-2 text-lg font-semibold">{option.name}</span>
               </label>
             ))}
           </div>
@@ -166,52 +150,41 @@ const PayPage = () => {
 
         {/* Pilihan metode pembayaran */}
         <div className="my-10">
-          <h2 className="text-2xl font-bold mb-4">Pilih Metode Pembayaran</h2>
+          <hr className="border-1 mb-5" />
+
+          <h2 className="text-2xl font-bold mb-4">Metode Pembayaran</h2>
           <div className="flex gap-4">
             {paymentMethods.map((method) => (
               <label key={method.id} className="flex items-center">
                 <input type="radio" className="form-radio" name="payment" />
-                <span className="ml-2 text-lg font-semibold">
-                  {method.name}
-                </span>
+                <span className="ml-2 text-lg font-semibold">{method.name}</span>
               </label>
             ))}
           </div>
         </div>
 
         {/* Rincian harga */}
-        <div className="my-10 border-2 border-gray-200 rounded-lg p-6">
+        <hr className="border-1 mb-5" />
+
+        <div className="my-10 border-2 border-gray-200 rounded-lg p-6 shadow-md">
           <h2 className="text-2xl font-bold mb-4">Rincian Harga</h2>
           <div className="flex items-center mb-4">
-            <p className="w-1/3 text-sm text-gray-600 font-bold">
-              Total Harga Produk
-            </p>
-            <p className="w-2/3 text-sm text-right font-bold text-gray-600">
-              {formatIndo(calculateTotalPrice(products))}
-            </p>
+            <p className="w-1/3 text-sm text-gray-600 font-bold">Total Harga Produk</p>
+            <p className="w-2/3 text-sm text-right font-bold text-gray-600">{formatIndo(calculateTotalPrice(products))}</p>
           </div>
           <div className="flex items-center mb-4">
-            <p className="w-1/3 text-sm text-gray-600 font-bold">
-              Biaya Pengiriman
-            </p>
-            <p className="w-2/3 text-sm text-right font-bold text-gray-600">
-              {formatIndo(calculateShippingCost(courierOptions))}
-            </p>
+            <p className="w-1/3 text-sm text-gray-600 font-bold">Biaya Pengiriman</p>
+            <p className="w-2/3 text-sm text-right font-bold text-gray-600">{formatIndo(calculateShippingCost(courierOptions))}</p>
           </div>
           <div className="flex items-center mb-4">
             <p className="w-1/3 text-sm text-gray-600 font-bold">Total Harga</p>
-            <p className="w-2/3 text-sm text-right font-bold text-gray-600">
-              {formatIndo(calculateTotalCost(products, courierOptions))}
-            </p>
+            <p className="w-2/3 text-sm text-right font-bold text-gray-600">{formatIndo(calculateTotalCost(products, courierOptions))}</p>
           </div>
         </div>
 
         {/* Tombol bayar */}
-        <div className="my-10">
-          <button
-            onClick={handleSubmit}
-            className="px-4 py-2 font-bold text-white bg-[#F9A825] rounded hover:bg-[#c8810e] focus:outline-none focus:shadow-outline"
-          >
+        <div className=" flex justify-end my-10">
+          <button onClick={handleSubmit} className=" px-4 py-2 font-semibold text-white bg-[#F9A825] rounded-lg hover:bg-[#c8810e] focus:outline-none focus:shadow-outline">
             Bayar
           </button>
         </div>
