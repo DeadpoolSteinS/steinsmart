@@ -40,8 +40,13 @@ function LoginPage() {
 
   return (
     <div className="flex items-center justify-center h-screen bg-[#F9A825]">
-      <form className=" bg-white p-8 mx-80 rounded-3xl shadow-xl" onSubmit={handleSubmit}>
-        <p className="mb-3 text-2xl text-[#F9A825] font-bold font-serif p-5">Welcome to Steinsmart, Fellas!</p>
+      <form
+        className=" bg-white p-8 mx-80 rounded-3xl shadow-xl"
+        onSubmit={handleSubmit}
+      >
+        <p className="mb-3 text-2xl text-[#F9A825] font-bold font-serif p-5">
+          Welcome to Steinsmart, Fellas!
+        </p>
 
         {errorMessage && ( // jika ada pesan error, tampilkan pesan tersebut
           <div className="flex justify-center">
@@ -49,12 +54,33 @@ function LoginPage() {
           </div>
         )}
 
-        <FormInput label="Username" id="username" type="text" placeholder="Username" value={username} onChange={handleUsernameChange} required className="mb-4" />
+        <FormInput
+          label="Username"
+          id="username"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={handleUsernameChange}
+          required
+          className="mb-4"
+        />
 
-        <FormInput label="Password" id="password" type="password" placeholder="**********" value={password} onChange={handlePasswordChange} required className="mb-6" />
+        <FormInput
+          label="Password"
+          id="password"
+          type="password"
+          placeholder="**********"
+          value={password}
+          onChange={handlePasswordChange}
+          required
+          className="mb-6"
+        />
 
         <div className="flex items-center justify-center">
-          <button className="bg-[#F9A825] hover:bg-[#FF7000] text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline " type="submit">
+          <button
+            className="bg-[#F9A825] hover:bg-[#FF7000] text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline "
+            type="submit"
+          >
             Sign In
           </button>
           {/* <a className="inline-block align-baseline font-bold text-sm text-[#F9A825] hover:text-[#FF7000]" href="/reset-password">
@@ -65,7 +91,10 @@ function LoginPage() {
           <br />
           <p>
             Don't have an account?{" "}
-            <Link className="text-[#F9A825] hover:text-[#FF7000] font-bold" to="/register">
+            <Link
+              to="/register"
+              className="text-[#F9A825] hover:text-[#FF7000] font-bold"
+            >
               Click here to register!
             </Link>
           </p>

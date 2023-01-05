@@ -4,23 +4,36 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/steins.png";
 import { FaShoppingCart } from "react-icons/fa";
 
-function Header() {
+const Header = () => {
   const navigate = useNavigate();
 
   const accountCookie = Cookies.get("account");
   const [account, setAccount] = useState({});
+  const [totalProductInCart, setTotalProductInCart] = useState(0);
 
   useEffect(() => {
     if (accountCookie === undefined) {
       return navigate("/login");
     }
 
+    const accountTmp = JSON.parse(accountCookie);
     setAccount(JSON.parse(accountCookie));
+
+    fetchProductOnCart(accountTmp._id);
   }, [navigate, accountCookie]);
 
   function handleLogout() {
     Cookies.remove("account");
     navigate("/login");
+  }
+
+  function fetchProductOnCart(accountId) {
+    // Fetch data produk dari API
+    fetch(`http://localhost:3000/api/account_cart/${accountId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalProductInCart(data.data.product.length);
+      });
   }
 
   return (
@@ -41,7 +54,7 @@ function Header() {
             >
               <FaShoppingCart className="text-3xl " />
               <sup className="absolute -top-2 -right-2 flex justify-center items-center text-xs bg-red-500 rounded-full w-5 h-5 text-white font-semibold">
-                5
+                {totalProductInCart}
               </sup>
             </Link>
           </div>
@@ -90,5 +103,5 @@ function Header() {
       </div>
     </nav>
   );
-}
+};
 export default Header;
